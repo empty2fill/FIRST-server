@@ -2,6 +2,7 @@ FROM ubuntu
 RUN apt-get update
 RUN apt-get -y dist-upgrade
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
+RUN apt-get install -y dos2unix
 RUN apt-get install -y build-essential python3-pip python3-dev libssl-dev libcrypto++-dev
 RUN apt-get install -y mysql-client libmysqlclient-dev apache2 libapache2-mod-wsgi-py3
 COPY install/requirements.txt /tmp
@@ -20,6 +21,7 @@ RUN /usr/sbin/a2enmod ssl
 RUN /usr/sbin/a2enmod rewrite
 
 COPY install/run.sh /usr/local/bin
+RUN dos2unix /usr/local/bin/run.sh
 EXPOSE 80
 EXPOSE 443
 CMD ["/usr/local/bin/run.sh"]
