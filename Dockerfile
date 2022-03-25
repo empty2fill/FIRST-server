@@ -1,6 +1,7 @@
 FROM ubuntu
 RUN apt-get update
 RUN apt-get -y dist-upgrade
+RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 RUN apt-get install -y build-essential python3-pip python3-dev libssl-dev libcrypto++-dev
 RUN apt-get install -y mysql-client libmysqlclient-dev apache2 libapache2-mod-wsgi-py3
 COPY install/requirements.txt /tmp
