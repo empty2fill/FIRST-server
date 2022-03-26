@@ -15,6 +15,7 @@ services:
          - MYSQL_PORT=3306
          - GOOGLE_SECRET=/usr/local/etc/google_secret.json
       volumes:
+          - ./server:/home/first
           - ./data/ssl:/etc/apache2/ssl
       restart: always
    mysql:
