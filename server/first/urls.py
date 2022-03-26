@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.conf.urls import handler404
 from django.urls import path, re_path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
 
 handler404 = 'www.views.handler404'
 
@@ -28,3 +29,8 @@ urlpatterns = [
 
 urlpatterns += staticfiles_urlpatterns()
 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path(r'__debug__/', include(debug_toolbar.urls)),
+    ]

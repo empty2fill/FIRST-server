@@ -20,6 +20,9 @@ else
    echo "Using existing SSL certificate"
 fi
 
+# Collect staticfiles
+/usr/bin/python3 /home/first/manage.py collectstatic --noinput
+
 # Always run migrations
 /usr/bin/python3 /home/first/manage.py migrate
 

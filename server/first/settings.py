@@ -144,3 +144,25 @@ USE_TZ = CONFIG.get('use_tz', True)
 STATIC_ROOT = os.path.join(BASE_DIR, 'www/static')
 
 STATIC_URL = CONFIG.get('static_url', '/static/')
+
+
+# django-debug-toolbar
+# https://django-debug-toolbar.readthedocs.io/
+# - if the server runs with multiple processes, the History Panel will be disabled.
+# - The default checks are that DEBUG must be set to True and the IP of the request must be in INTERNAL_IPS.
+INSTALLED_APPS += ('debug_toolbar',)
+
+MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+
+DEBUG_TOOLBAR_CONFIG = {
+    'DISABLE_PANELS': [
+        "debug_toolbar.panels.redirects.RedirectsPanel",
+    ],
+}
+
+if DEBUG:
+    import os  # only if you haven't already imported this
+    import socket  # only if you haven't already imported this
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
+    
